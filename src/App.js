@@ -4,22 +4,35 @@ import './App.css';
 
 import Map from './Map.js';
 import Layout from './Layout.js';
-import Char from './Char.js';
+import Player from './Player.js';
+import Controller from './Controller.js';
 
 class App extends Component {
 	constructor(props){
 		super(props);
-		var x = new Char();
-			
+		
 		this.state = {
-			Character:x
+			Player:new Player(),
+			Map:new Map()
 		}
+		
+		this.setPlayer = this.setPlayer.bind(this);
 	}
+	
+  setPlayer(Modified_Player){
+  	var Player = this.state.Player;
+  	Player = Modified_Player;
+  	this.setState({Player});
+  }
+  
+  setMap(Modified_Map){
+  	var Map = this.state.Map;
+  	Map = Modified_Map;
+  	this.setState({Map});
+  }
+  
   render() {
-  	var character = new Char();
-  	var hitpoints = character.state.HP
-  	console.log(hitpoints);
-  	  
+  	 	  
     return (
       <div className="App">
         <header className="App-header">
@@ -27,8 +40,12 @@ class App extends Component {
           <h1 className="App-title">Welcome to React</h1>
         </header>
         <p className="App-intro">
+         <Controller
+         	setPlayer = {this.setPlayer}
+         />
          <Layout
-         	Char = {this.state.Character}
+         	Map = {this.state.Map}
+         	Player = {this.state.Player}
          />
         </p>
       </div>

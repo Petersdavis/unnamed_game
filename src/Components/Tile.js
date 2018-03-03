@@ -1,3 +1,5 @@
+
+import Tiles from './Tiles';
 class Tile{
 	constructor() {
 		this.state = {

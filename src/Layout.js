@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 class Layout extends Component {
 	
 	render() {
-		var Char = this.props.Char;
+		var Player = this.props.Player;
 		var y = "string"
     return (
-    	<div> Character HIT POINTS: {Char.expose().HP} 
+    	<div> Character HIT POINTS: {Player.expose().HP} 
     	Layout Goes HERE </div>
     	
      )}

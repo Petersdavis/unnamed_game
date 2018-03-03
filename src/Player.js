@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class Char {
+class Player {
 	constructor() {
 		this.state = {
 			name:"Unnamed",
@@ -24,4 +24,4 @@ class Char {
 	
 }
 
-export default Char;
+export default Player;
