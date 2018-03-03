@@ -3,7 +3,7 @@ import Tile from './Components/Tile'
 class Map{
 	constructor(width, height) {
 		this.state = {
-			tiles:[]
+			tiles:[],
 			depth:0
 		}
 		
