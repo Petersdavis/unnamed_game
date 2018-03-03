@@ -12,10 +12,10 @@ Character:
 State: {Attr, Objs}
 
 Map: 
-State: {[x][y] Square, Attr(depth [..])}
+State: {[x][y] Tile, Attr(depth [..])}
 
-Square:
-State: {floor_id, Objs, Creatures}
+Tile:
+State: {floor_id, objs, monsters}
 	Obj:
 	{type_id, attr, FLAGS}  i.e. SEEN
 	
