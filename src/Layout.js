@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
+import MapLayout from './Layouts/MapLayout';
+
 class Layout extends Component {
 	
 	render() {
 		var Player = this.props.Player;
 		var y = "string"
     return (
-    	<div> Character HIT POINTS: {Player.expose().HP} 
-    	Layout Goes HERE </div>
-    	
+    	<MapLayout Map = {this.props.Map}  />    	
+    	    	
      )}
 }
 

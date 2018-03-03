@@ -1,8 +1,10 @@
 import Tile from './Components/Tile'
 
-class Map{
-	constructor(width, height) {
+class Map {
+	constructor(height, width) {
 		this.state = {
+			width:width,
+			height:height,
 			tiles:[],
 			depth:0
 		}
@@ -27,6 +29,12 @@ class Map{
 	
 	expose(){
 		return this.state;	
+	}
+	
+	render(){
+		return(null
+			
+			)
 	}
 }
 

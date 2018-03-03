@@ -30,7 +30,7 @@ class Controller extends Component {
 		var style = {position: "fixed", top:0, bottom:0, left:0, right:0, background:"rgba(0,0,0,0)"} 
 		return(
 			
-			<div style = {style} onClick = {this.handleClick} onKeypress = {this.handleKeypress} >  </div>
+			<div style = {style} onClick = {this.handleClick} onKeyPress = {this.handleKeypress} >  </div>
 			
 			)
 		

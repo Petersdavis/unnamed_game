@@ -13,7 +13,8 @@ class App extends Component {
 		
 		this.state = {
 			Player:new Player(),
-			Map:new Map()
+			Map:new Map(15, 30)
+		
 		}
 		
 		this.setPlayer = this.setPlayer.bind(this);
@@ -39,7 +40,7 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>
         </header>
-        <p className="App-intro">
+        <div className="App-intro">
          <Controller
          	setPlayer = {this.setPlayer}
          />
@@ -47,7 +48,7 @@ class App extends Component {
          	Map = {this.state.Map}
          	Player = {this.state.Player}
          />
-        </p>
+        </div>
       </div>
     );
   }
