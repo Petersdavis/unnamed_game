@@ -6,7 +6,7 @@ class Tile{
 			monsters:[]
 		}
 		
-		this.exposeTile = this.exposeTile.bind(this);
+		this.expose = this.expose.bind(this);
 		this.addObj = this.addObj.bind(this);
 		this.addMonst = this.addMonst.bind(this);
 		this.removeObj = this.removeObj.bind(this);
@@ -18,7 +18,7 @@ class Tile{
 	removeObj(){}
 	removeMonst(){}
 	
-	exposeChar(){
+	expose(){
 		return this.state;
 	}
 	
