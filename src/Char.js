@@ -10,14 +10,14 @@ class Char {
 			Dex:9
 		}
 		
-		this.exposeChar = this.exposeChar.bind(this);
+		this.expose = this.expose.bind(this);
 		this.saveChar = this.saveChar.bind(this);
 		this.loadChar = this.loadChar.bind(this);
 	}
 	
 	saveChar(){	}
 	loadChar(){	}
-	exposeChar(){
+	expose(){
 		return this.state;
 	}
 	
