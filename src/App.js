@@ -10,12 +10,13 @@ import Controller from './Controller.js';
 class App extends Component {
 	constructor(props){
 		super(props);
-		
+			
 		this.state = {
 			Player:new Player(),
 			Map:new Map(15, 30)
 		
 		}
+		
 		
 		this.setPlayer = this.setPlayer.bind(this);
 	}

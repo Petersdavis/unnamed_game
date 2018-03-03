@@ -1,9 +1,8 @@
-import React, { Component } from 'react';
 import Tiles from './Tiles';
-class Tile extends Component{
+class Tile{
 	
 	constructor(props) {
-		super(props);
+		
 		this.state = {
 			floor_id:0,
 			floor_ascii:"#",
@@ -31,7 +30,7 @@ class Tile extends Component{
 			
 			tile.floor_id = 1;
 			tile.floor_ascii = "0";
-			this.setState({tile});
+			
 			
 		}
 		
@@ -41,13 +40,7 @@ class Tile extends Component{
 		return this.state;
 	}
 	
-	render(){
-		return (
-			<span>{this.state.floor_ascii}</span>
-			)
-	}
-	
-	
+		
 }
 
 export default Tile;
