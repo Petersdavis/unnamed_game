@@ -14,7 +14,7 @@ class App extends Component {
 		this.state = {
 			Player:new Player(),
 			Map:new Map(15, 30)
-		
+		    
 		}
 		
 		
@@ -46,7 +46,7 @@ class App extends Component {
          	setPlayer = {this.setPlayer}
          />
          <Layout
-         	Map = {this.state.Map}
+           	Map = {this.state.Map}
          	Player = {this.state.Player}
          />
         </div>
