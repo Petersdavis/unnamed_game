@@ -87,9 +87,11 @@ class Map {
 		}
 		
 		wall = getWall(x,y,top,right,bot,left)
-		makeTunnel(wall[Math.floor(Math.random()*wall.length)+1], Math.floor(Math.random()*40);
-		
-				
+		makeTunnel(wall[Math.floor(Math.random()*wall.length)+1], Math.floor(Math.random()*40);		
+	}
+
+	makeTunnel(tile, counter){
+		tile.dig();
 	}
 	
 	getWall(x, y, top, right, bot, left){
@@ -122,7 +124,6 @@ class Map {
 				wall.push(this.getTile(y+bot+1, count1))			
 			}	
 			wall.direction  = "down"
-			
 			
 			break;
 		case a>0.75:
