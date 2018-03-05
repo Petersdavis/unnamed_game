@@ -87,7 +87,7 @@ class Map {
 		}
 		
 		wall = getWall(x,y,top,right,bot,left)
-		for(count1
+		makeTunnel(wall[Math.floor(Math.random()*wall.length)+1], Math.floor(Math.random()*40);
 		
 				
 	}
