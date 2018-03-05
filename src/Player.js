@@ -7,7 +7,7 @@ class Player {
 			HP:30,
 			SP:30,
 			Str:9,
-			Dex:9
+			Dex:9,
 		}
 		
 		this.expose = this.expose.bind(this);

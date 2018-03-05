@@ -1,11 +1,15 @@
-import React, { Component } from 'react';
+ import React, { Component } from 'react';
 import TileLayout from './TileLayout';
 
 
 class MapLayout extends Component {
 	constructor(props) {
 		super(props);
+		this.handleClick = this.handleClick.bind(this)
 		
+	}
+	handleClick(e){
+		console.log("Map Clicked")
 	}
 			
 	render(){
@@ -34,7 +38,8 @@ class MapLayout extends Component {
 			}
 			
 		return(
-			<div style = {style}>
+			<div style = {style} onClick ={this.handleClick}
+			>
 			{fragment}
 			</div>
 			

@@ -16,9 +16,44 @@ class Controller extends Component {
 	setTile(){
 		return this.state;
 	}
+
+	// moveLeft() {
+	// 	console.log("moving left");
+	// }
+
+	// moveUp() {
+	// 	console.log("moving up");
+	// }
+
+	// moveRight() {
+	// 	console.log("moving right");
+	// }
+
+	// moveDown() {
+	// 	console.log("moving down");
+	// }
 	
-	handleKeypress(e){
-		console.log("keypress");
+	handleKeyPress(e){
+		// LEFT keycode = 37
+		if (e.which == 37) {
+			//this.moveLeft();
+			console.log("moving left")
+		}
+		// UP keycode = 38
+		else if (e.which == 38) {
+			//this.moveUp();
+		}
+		// RIGHT keycode = 39
+		else if (e.which == 39) {
+			//this.moveRight();
+		}
+		// DOWN keycode = 40
+		else if (e.which == 40) {
+			//this.moveDown();
+		}
+		else {
+			console.log("Another key pressed");
+		}
 	}
 	
 	handleClick(e){
@@ -28,9 +63,10 @@ class Controller extends Component {
 	
 	render(){
 		var style = {position: "fixed", top:0, bottom:0, left:0, right:0, background:"rgba(0,0,0,0)"} 
+		document.addEventListener("onkeydown", this.handleKeyPress);
 		return(
 			
-			<div style = {style} onClick = {this.handleClick} onKeyPress = {this.handleKeypress} >  </div>
+			<div style = {style} onClick = {this.handleClick} onKeyDown = {this.handleKeyPress} tabIndex = "0" >  </div>
 			
 			)
 		
