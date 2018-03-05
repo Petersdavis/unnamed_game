@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 class Controller extends Component {
 	constructor(props) {
 		super(props);
@@ -37,7 +38,11 @@ class Controller extends Component {
 		// LEFT keycode = 37
 		if (e.which == 37) {
 			//this.moveLeft();
-			console.log("moving left")
+			console.log("moving left");
+			p = this.props.Player;
+			p.setXPos(p.getXPos() - 1);
+			this.setPlayer(p);
+			console.log("current x pos = " + p.getXPos());
 		}
 		// UP keycode = 38
 		else if (e.which == 38) {

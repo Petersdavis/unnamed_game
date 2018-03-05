@@ -26,14 +26,12 @@ class Player {
 	}
 
 	setXPos(x) {
-		xPos += x;
+		xPos = x;
 	}
 
 	setYPos(y) {
-		yPos += y;
+		yPos = y;
 	}
-
-
 	
 	saveChar(){	}
 	loadChar(){	}
