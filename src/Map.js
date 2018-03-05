@@ -24,7 +24,8 @@ class Map {
 		this.rndX = this.rndX.bind(this);
 		this.rndY = this.rndY.bind(this);
 		this.getTile = this.getTile.bind(this);
-		this.getWall = this.getWall.bind(this);
+		this.getWall = this.getWalls.bind(this);
+		this.makeTunnel = this.makeTunnel.bind(this);
 		this.newMap();
 	}
 	
@@ -41,11 +42,18 @@ class Map {
 	
 	getTile(y, x){
 		var tiles = this.state.tiles;
-		return tiles[y][x];
+		if(y < this.state.height -1 && y >= 0 && x< this.state.width-1 && x>=0){
+
+			return tiles[y][x];
+		}else{
+			return false;
+		}
+		
+		
 	}
 	
 	newMap(depth){
-		const num_rooms = 6;
+		const num_rooms = 1;
 		var count;
 		for(count = 0;count<num_rooms;++count){
 			this.addRoom();
@@ -60,13 +68,14 @@ class Map {
 		var a;
 	
 		var tiles = [];
+		var tile;
 		var wall = [];
 		var direction = "";
 		
 		var top = Math.floor(Math.random()*4);
 		var bot =Math.floor(Math.random()*4);
-		var left = Math.floor(Math.random()*4);
-		var right =Math.floor(Math.random()*4);
+		var left = Math.floor(Math.random()*4+1);
+		var right =Math.floor(Math.random()*4+1);
 		
 		if(top+bot<2){top+1}
 		if(left+right<2){left+1}
@@ -75,10 +84,11 @@ class Map {
 		
 		for(count1 = y-top;count1<y+bot;++count1){
 			for(count2=x-left;count2<x+right;++count2){
-				if(count1 < this.state.height && count1 >= 0 && count2 <this.state.width && count2 >= 0){
-					tiles.push(this.getTile(count1, count2));
+				if(tile =this.getTile(count1, count2)){
+					tiles.push(tile);
+
+				} 					
 					
-					}
 				}	
 			}
 		
@@ -86,57 +96,63 @@ class Map {
 			tiles[count1].dig();
 		}
 		
-		wall = getWall(x,y,top,right,bot,left)
-		makeTunnel(wall[Math.floor(Math.random()*wall.length)+1], Math.floor(Math.random()*40);		
+		wall = this.getWalls(x,y,top,right,bot,left);
+		if(wall.length>0){
+		 this.makeTunnel(wall[Math.floor(Math.random()*wall.length)], Math.floor(Math.random()*40));	
+		}	
 	}
 
 	makeTunnel(tile, counter){
-		tile.dig();
+		//tile.dig();
 	}
 	
-	getWall(x, y, top, right, bot, left){
-		
+	getWalls(x, y, top, right, bot, left){
+		var a;
 		var wall = [];
+		var tile = {};
 		var count1;
-		
-		switch(a = Math.random()){
-			
-		case a<0.25:
-			//top wall
+		//top wall
 			for(count1=x-left+1;count1<x+right-1;++count1){
-				wall.push(this.getTile(y-top-1, count1))			
+				if(tile.tile =this.getTile(y-top-1, count1) ){
+					tile.tile.state.floor_ascii = "X";
+					tile.direction = "up"
+					wall.push(tile);
+				}
+							
 			}	
-			wall.direction = "up"
-		
-			break;
-		case a>0.25 && a<0.5:
-			//right wall
+			
+		//right wall
 			for(count1=y-top+1;count1<y+bot-1;++count1){
-				wall.push(this.getTile(count1, x+right+1))			
-			}	
-			wall.direction  = "right"
+				if(tile.tile =this.getTile(count1, x+right) ){
+					tile.tile.state.floor_ascii = "Y";
+					tile.direction  = "right"
+					wall.push(tile);
+				}
 			
-			break;
-			
-		case a>0.5 && a<0.75:
+			}					
+		
 			//bottom wall
 			for(count1=x-left+1;count1<x+right-1;++count1){
-				wall.push(this.getTile(y+bot+1, count1))			
+				if(tile.tile =this.getTile(y+bot, count1) ){
+					tile.tile.state.floor_ascii = "Z";
+					tile.direction  = "down"
+					wall.push(tile);
+				}
+						
 			}	
-			wall.direction  = "down"
 			
-			break;
-		case a>0.75:
 			//left wall
 			
 			for(count1=y-top+1;count1<y+bot-1;++count1){
-				wall.push(this.getTile(count1, x-left-1))			
+				if(tile.tile =this.getTile(count1, x-left-1)){
+					tile.tile.state.floor_ascii = "K";
+					tile.direction  = "left"
+					wall.push(tile);
+				}
+				
 			}	
-			wall.direction  = "right"
-			break;
-		default:
-			break;
-		}
+			
+			
 		return wall;
 	}
 	
