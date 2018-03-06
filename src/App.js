@@ -10,11 +10,12 @@ import Controller from './Controller.js';
 class App extends Component {
 	constructor(props){
 		super(props);
-			
+		var player = new Player();	
+    var map = new Map(15, 30);
+
 		this.state = {
-			Player:new Player(),
-			Map:new Map(15, 30)
-		    
+			Player:player,
+			Map:map
 		}
 		
 		
@@ -43,6 +44,7 @@ class App extends Component {
         </header>
         <div className="App-intro">
          <Controller
+          Player = {this.state.Player}
          	setPlayer = {this.setPlayer}
          />
          <Layout
