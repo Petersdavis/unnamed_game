@@ -9,9 +9,14 @@ import Controller from './Controller.js';
 
 class App extends Component {
 	constructor(props){
-		super(props);
+    super(props);
+    var xy;
 		var player = new Player();	
     var map = new Map(15, 30);
+    xy = map.rndRoomXY();
+    player.setXPos(xy.x);
+    player.setYPos(xy.y);
+
 
 		this.state = {
 			Player:player,

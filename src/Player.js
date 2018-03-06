@@ -1,7 +1,11 @@
+import Tile from './Components/Tile'
 
 class Player {
 	constructor() {
+
+		var tile = new Tile(100)
 		this.state = {
+			tile:tile,
 			name:"Unnamed",
 			HP:30,
 			SP:30,
@@ -11,11 +15,10 @@ class Player {
 			yPos: 0
 		}
 		
-		this.expose = this.expose.bind(this);
-		this.saveChar = this.saveChar.bind(this);
-		this.loadChar = this.loadChar.bind(this);
 	}
-
+	getTile(){
+		return this.state.tile;
+	}
 	getXPos() {
 		return this.state.xPos;
 	}

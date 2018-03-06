@@ -7,7 +7,7 @@ class Layout extends Component {
 		//var Player = this.props.Player;
 		//var y = "string"
     return (
-    	<MapLayout Map = {this.props.Map}  />    	
+    	<MapLayout Map = {this.props.Map} Player = {this.props.Player}  />    	
     	    	
      )}
 }

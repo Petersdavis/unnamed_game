@@ -1,50 +1,80 @@
-var Tiles = [
+class Tiles{
+	constructor(id){
+		switch(id){
+			case 100:
+				this.data = {
+					id:0,
+					name:"character",
+					ascii:"@",
+					IS_WALKABLE:1
+				};
+				break;
+			case 8:
+			case 7:
+			case 6:
+				this.data = {
+					id:6,
+					name:"door",
+					ascii:"%",
+					IS_WALKABLE:0,
+					IS_OPEN:0
+				};
+			break; 
+			case 5:
+				this.data = {
+					id:5,
+					name:"chair",
+					ascii:"%",
+					IS_WALKABLE:1
+				};
+			break; 
+			case 4:
+				this.data = {
+					id:4,
+					name:"table",
+					ascii:"%",
+					IS_WALKABLE:1
+				};
+				break; 
+			case 3:
+				this.data = {
+					id:3,
+					name:"stair_up",
+					ascii:"<",
+					IS_WALKABLE:1
+				};
+				break; 
+			case 2:
+				this.data = {
+					id:2,
+					name:"stair_down",
+					ascii:">",
+					IS_WALKABLE:1
+				};
+				break; 
+			case 1:
+				this.data = {
+					id:1,
+					name:"floor",
+					ascii:"0",
+					IS_WALKABLE:1
+				};
+				break;
 
-{
-	id:0,
-	name:"floor",
-	IS_WALKABLE:1
-},
+			default:
+				this.data = {
+					id:0,
+					name:"wall",
+					ascii:"#",
+					IS_WALKABLE:0
+				};
 
-{
-	id:1,
-	name:"wall",
-	IS_WALKABLE:0},
-
-{
-	id:2,
-	name:"door",
-	IS_WALKABLE:0,
-	IS_OPEN:0
-
-},
-
-{
-	id:3,
-	name:"staircase",
-	IS_WALKABLE:1
-},
-
-{
-	id:4,
-	name:"table",
-	IS_WALKABLE:0
-},
-
-{
-	id:5,
-	name:"chair",
-	IS_WALKABLE:0
-},
-
-{
-	id:6,
-	name:"closet",
-	IS_WALKABLE:0,
-	IS_OPEN:0
-},
-
-]
-
+			break;
+					
+		}
+	}
+}
+	
+	
 
 export default Tiles;

@@ -1,39 +1,35 @@
-//import Tiles from './Tiles';
+import Tiles from './Tiles';
+
 class Tile{
 	
-	constructor(y, x) {
+	constructor(id, xy) {
+		id = id || 0;
+		xy = xy || {x:-1, y:-1};
+		var tile;
+		tile = new Tiles(id)
+		this.state = tile.data;
 		
-		this.state = {
-			x:x,
-			y:y,
-			floor_id:0,
-			floor_ascii:"#",
-			objs:[],
-			monsters:[]
-		}
-		
-		this.expose = this.expose.bind(this);
-		this.addObj = this.addObj.bind(this);
-		this.addMonst = this.addMonst.bind(this);
-		this.removeObj = this.removeObj.bind(this);
-		this.removeMonst = this.removeMonst.bind(this);
-		this.dig = this.dig.bind(this);
-		
+		this.state.xy=xy;
+				
 	}
-	
+
+	changeTile(new_id){
+		var xy = this.state.xy
+		var tile
+		tile = new Tiles(new_id)
+		this.state = tile.data;
+		this.state.xy = xy;
+
+	}
 	addObj(){}
 	addMonst(){}
 	removeObj(){}
 	removeMonst(){}
 	dig(){
 		var tile = this.state
-		if(tile.floor_id === 0){
+		if(this.state.id === 0){
 			//this is a wall
-			
-			tile.floor_id = 1;
-			tile.floor_ascii = "0";
-			
-			
+			this.changeTile(1);			
 		}
 		
 	}

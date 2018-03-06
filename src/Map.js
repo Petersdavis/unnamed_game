@@ -1,19 +1,10 @@
 import Tile from './Components/Tile'
 
 class Room {
-	constructor(x,y){
-		
+	constructor(x,y, width, height){
+		this.tiles = [];
 		this.newRoom =this.newRoom.bind(this);
-		this.newRoom(x,y)
-
-	}
-
-	dig(){
-		var x;
-		for(x=0;x<this.tiles.length;++x){
-			this.tiles[x].dig();
-		}
-
+		this.newRoom(x,y, width, height)
 
 	}
 
@@ -37,14 +28,14 @@ class Room {
 		}
 	
 
-		newRoom(x,y){
+		newRoom(x,y, width, height){
 			
 		var tile;
 				
 		this.top = Math.max(0, y-Math.floor(Math.random()*4));
-		this.bot = Math.min(this.state.height, y+ Math.floor(Math.random()*4));
+		this.bot = Math.min(height, y+ Math.floor(Math.random()*4));
 		this.left =Math.max(0, x-Math.floor(Math.random()*4+1));
-		this.right =Math.min(this.state.width,x+Math.floor(Math.random()*4+1));
+		this.right =Math.min(width,x+Math.floor(Math.random()*4+1));
 		this.is_connected = false;
 		
 		while(this.bot - this.top<2){
@@ -66,11 +57,11 @@ class Room {
 		
 		for(count1 = this.top;count1<this.bot;++count1){
 			for(count2=this.left;count2<this.right;++count2){
-				tile = this.getTile(count1, count2)
-				if(tile){
-					this.tiles.push(tile);
-				} 					
-				
+				tile = {}
+				tile.x = count2;
+				tile.y = count1;
+				this.tiles.push(tile);
+							
 				}	
 			}
 		
@@ -85,15 +76,18 @@ class Map {
 		this.state = {
 			width:width,
 			height:height,
+			rooms:[],
+			corridors:[],
 			tiles:[],
 			depth:0
 		}
 		
-		var x, y; 
+		var x, y, xy; 
 		for(y=0;y<height;++y){
 			this.state.tiles[y] = [];
 			for(x=0;x<width;++x){
-				this.state.tiles[y][x] = new Tile(y, x);
+				xy = {x:x, y:y}
+				this.state.tiles[y][x] = new Tile(0, xy);
 			}
 		}
 			
@@ -106,6 +100,17 @@ class Map {
 		
 		
 		this.newMap();
+	}
+
+	rndRoomXY(){
+		var a, xy;
+		a= Math.floor(Math.random()*this.state.rooms.length);
+		xy = {};
+		xy.x = this.state.rooms[a].rndX();
+		xy.y = this.state.rooms[a].rndY();
+
+		return xy;	
+
 	}
 	
 	
@@ -138,15 +143,15 @@ class Map {
 		var room;
 		var rooms = [];
 		var corridors = [];
-				
+		count = 0		
 		while(rooms.length<num_rooms && count <50){
-			count = 0
+			count2 = 0
+			room = new Room(this.rndX(), this.rndY(), this.state.width, this.state.height);
 			while(this.intersects(room, rooms)||count2>50){
-				room = new Room(this.rndX, this.rndY);
+				room = new Room(this.rndX(), this.rndY(), this.state.width, this.state.height);
 				count +=1
 			}
 			if(count<50){
-				room.dig();
 				rooms.push(room)
 			}
 		}
@@ -162,10 +167,15 @@ class Map {
 		
 
 		for(count=0;count<rooms.length;++count){
-			console.log(count);
-			rooms[count].dig();
-
+				this.dig(rooms[count].tiles);
 		}
+		for(count=0;count<corridors.length;++count){
+			this.dig(corridors[count].tiles);
+		}
+
+		this.state.rooms = rooms;
+		this.state.corridors = corridors;
+
 		return this;
 	}
 
@@ -176,33 +186,40 @@ class Map {
 		var a ;
 		var coin_flip = Math.floor(Math.random()*2);
 		for (a=0;a<rooms.length;++a){
-			if(rooms[a].is_connected||a===rooms.length -1){
+			if(rooms[a] !== room && (rooms[a].is_connected||a===rooms.length -1)){
 				x2 = rooms[a].rndX();
 				y2 = rooms[a].rndY();
 			}
-
-			if(coin_flip){
-				if(!this.makeCorridor(x2,y2,x2,y1,rooms,corridors)){
-					if(!this.makeCorridor(x2,y1,x1,y1,rooms,corridors)){
-						room.is_connected = true;
-					}
+		}
+		if(coin_flip){
+			if(!this.makeCorridor(x2,y2,x2,y1,rooms,corridors)){
+				if(!this.makeCorridor(x2,y1,x1,y1,rooms,corridors)){
+					room.is_connected = true;
+					return true
 				}
-			}else{
-				if(!this.makeCorridor(x2,y2,x1,y2,rooms,corridors)){
-					if(!this.makeCorridor(x1,y2,x1,y1,rooms,corridors)){
-						room.is_connected = true;
-					}
-				}
+				return true;
 			}
+			return true;
+		}else{
+			if(!this.makeCorridor(x2,y2,x1,y2,rooms,corridors)){
+				if(!this.makeCorridor(x1,y2,x1,y1,rooms,corridors)){
+					room.is_connected = true;
+					return true
+				}
+				return true;
+				
+			}
+			return true;				
 			
 		}
-	 
+		
 	}
-
+	
 	makeCorridor(x1,y1,x2,y2,rooms,corridors){
 		var a,b;
 		var curr_x, curr_y
 		var corridor = {}
+		corridors.push(corridor)
 		corridor.x1 = x1;
 		corridor.x2 = x2;
 		corridor.y1 = y1;
@@ -217,27 +234,31 @@ class Map {
 				}else{
 					curr_y = y1-a;
 				}
-				tile = this.getTile(curr_y, curr_x)
+				tile = {}
+				tile.x = curr_x;
+				tile.y = curr_y;
 				corridor.tiles.push(tile)
 			}
 		}else{
-				curr_y = y1;
-				for(a=0;a<Math.abs(x2-x1);++a){
-					if(x2>x1){
-						curr_x = x1+a;
-					}else{
-						curr_x = x1-a;
-					}
-					tile = this.getTile(curr_y, curr_x)
-					corridor.tiles.push(tile)
-
+			curr_y = y1;
+			for(a=0;a<Math.abs(x2-x1);++a){
+				if(x2>x1){
+					curr_x = x1+a;
+				}else{
+					curr_x = x1-a;
 				}
+				tile = {}
+				tile.x = curr_x;
+				tile.y = curr_y;
+				corridor.tiles.push(tile)
+
+			}
 		}
 		
 		for(a=0;a<corridor.tiles.length;++a){
-		
+			tile = corridor.tiles[a]
 			for(b=0;b<rooms.length;++b){
-				if(rooms[b].isInRoom(curr_x,curr_y)&&!rooms[b].is_connected){
+				if(rooms[b].isInRoom(tile.x,tile.y)&&!rooms[b].is_connected){
 					rooms[b].is_connected = 1;
 					return true
 				}
@@ -287,7 +308,16 @@ class Map {
 		
 	}
 
-
+	dig(tiles){
+		var a = 0
+		var tile;
+		for(a=0;a<tiles.length;++a){
+			tile = this.getTile(tiles[a].y, tiles[a].x)
+			if(tile){
+				tile.dig();
+			}
+		}
+	}
 
 	intersects(room, rooms){
 		var a;

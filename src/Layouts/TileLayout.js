@@ -10,7 +10,7 @@ class TileLayout extends Component {
 	render(){
 		
 		return(
-			<span>{this.props.floor_ascii} </span>
+			<span>{this.props.ascii} </span>
 			
 			)
 	}
