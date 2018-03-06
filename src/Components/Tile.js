@@ -1,9 +1,11 @@
 import Tiles from './Tiles';
 class Tile{
 	
-	constructor(props) {
+	constructor(y, x) {
 		
 		this.state = {
+			x:x,
+			y:y,
 			floor_id:0,
 			floor_ascii:"#",
 			objs:[],

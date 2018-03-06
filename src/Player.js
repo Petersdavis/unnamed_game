@@ -18,19 +18,19 @@ class Player {
 	}
 
 	getXPos() {
-		return xPos;
+		return this.state.xPos;
 	}
 
 	getYPos() {
-		return yPos;
+		return this.state.yPos;
 	}
 
 	setXPos(x) {
-		xPos = x;
+		this.state.xPos = x;
 	}
 
 	setYPos(y) {
-		yPos = y;
+		this.state.yPos = y;
 	}
 	
 	saveChar(){	}
