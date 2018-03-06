@@ -1,4 +1,4 @@
-import Tiles from './Tiles';
+//import Tiles from './Tiles';
 class Tile{
 	
 	constructor(y, x) {
@@ -27,7 +27,7 @@ class Tile{
 	removeMonst(){}
 	dig(){
 		var tile = this.state
-		if(tile.floor_id == 0){
+		if(tile.floor_id === 0){
 			//this is a wall
 			
 			tile.floor_id = 1;

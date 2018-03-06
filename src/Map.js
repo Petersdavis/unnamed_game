@@ -40,22 +40,34 @@ class Room {
 		newRoom(x,y){
 			
 		var tile;
-		var direction = "";
-		
-		this.top = y-Math.floor(Math.random()*4);
-		this.bot = y+ Math.floor(Math.random()*4);
-		this.left = x-Math.floor(Math.random()*4+1);
-		this.right =x+Math.floor(Math.random()*4+1);
+				
+		this.top = Math.max(0, y-Math.floor(Math.random()*4));
+		this.bot = Math.min(this.state.height, y+ Math.floor(Math.random()*4));
+		this.left =Math.max(0, x-Math.floor(Math.random()*4+1));
+		this.right =Math.min(this.state.width,x+Math.floor(Math.random()*4+1));
 		this.is_connected = false;
 		
-		while(this.top+this.bot<2){this.top+=1}
-		while(this.left+this.right<2){this.left+=1}
+		while(this.bot - this.top<2){
+			if(this.top > this.height/2){
+				this.top -=1
+			}else{
+				this.bot +=1
+			}
+		}
+		while(this.right-this.left<2){
+			if(this.left > this.width/2){
+				this.left -=1
+			}else{
+				this.right +=1
+			}
+		}
 		
 		var count1, count2;
 		
 		for(count1 = this.top;count1<this.bot;++count1){
 			for(count2=this.left;count2<this.right;++count2){
-				if(tile =this.getTile(count1, count2)){
+				tile = this.getTile(count1, count2)
+				if(tile){
 					this.tiles.push(tile);
 				} 					
 				
@@ -164,7 +176,7 @@ class Map {
 		var a ;
 		var coin_flip = Math.floor(Math.random()*2);
 		for (a=0;a<rooms.length;++a){
-			if(rooms[a].is_connected||a==rooms.length -1){
+			if(rooms[a].is_connected||a===rooms.length -1){
 				x2 = rooms[a].rndX();
 				y2 = rooms[a].rndY();
 			}
@@ -197,7 +209,7 @@ class Map {
 		corridor.y2 = y2;
 		corridor.tiles = [];
 		var tile;
-		if(x1 == x2){
+		if(x1 === x2){
 			curr_x = x1;
 			for(a=0;a<Math.abs(y2-y1);++a){
 				if(y2>y1){
@@ -239,10 +251,9 @@ class Map {
 	}
 		
 	getDisconnectedRooms(rooms, corridors){
-		var x,y,z;
+		var x,y;
 		var x1,x2,y1,y2;
 		var room;
-		var room_connections;
 		for(y=0;y<rooms.length;++y){
 			room = rooms[y];
 			if(room.is_connected){
@@ -258,9 +269,9 @@ class Map {
 						room.is_connected = true;
 					} else if (room.top < y2 && room.bot > y2 &&  room.left<x2 && room.right>x2){
 						room.is_connected = true;
-					}else if(y1 == y2 && room.top < y1 && room.bot > y1 && rooms.left > x1 && rooms.right <x2) {
+					}else if(y1 === y2 && room.top < y1 && room.bot > y1 && rooms.left > x1 && rooms.right <x2) {
 						room.is_connected = true;
-					}else if(x1 == x2  && room.left < x1 && room.right > x1 && rooms.top > y1 && rooms.bot <y2){
+					}else if(x1 === x2  && room.left < x1 && room.right > x1 && rooms.top > y1 && rooms.bot <y2){
 						room.is_connected = true;
 					}
 				}
@@ -279,23 +290,23 @@ class Map {
 
 
 	intersects(room, rooms){
-		var a,b;
+		var a;
 		
 		for(a=0;a<rooms.length;++a){
-			test = rooms[a]
-			if(test.bot > room.top && test.bot < room.bot && test.right > room.left && test.right < room.right){
+			var compare_room = rooms[a]
+			if(compare_room.bot > room.top && compare_room.bot < room.bot && compare_room.right > room.left && compare_room.right < room.right){
 				return true;
 			}
-			if(test.top > room.top && test.top < room.bot && test.right > room.left && test.right < room.right){
+			if(compare_room.top > room.top && compare_room.top < room.bot && compare_room.right > room.left && compare_room.right < room.right){
 				return true;
 			}
-			if(test.top > room.top && test.top < room.bot && test.left > room.left && test.left < room.right){
+			if(compare_room.top > room.top && compare_room.top < room.bot && compare_room.left > room.left && compare_room.left < room.right){
 				return true;
 			}
-			if(test.bot > room.top && test.bot < room.bot && test.left > room.left && test.left < room.right){
+			if(compare_room.bot > room.top && compare_room.bot < room.bot && compare_room.left > room.left && compare_room.left < room.right){
 				return true;
 			}
-			if(test.bot > room.bot && test.top < room.top && test.left < room.left && test.right > room.right){
+			if(compare_room.bot > room.bot && compare_room.top < room.top && compare_room.left < room.left && compare_room.right > room.right){
 				return true;
 			}
 			

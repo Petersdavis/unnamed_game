@@ -53,19 +53,19 @@ class Controller extends Component {
 	
 	handleKeyPress(e){
 		// LEFT keycode = 37
-		if (e.which == 37) {
+		if (e.which === 37) {
 			this.moveLeft();
 		}
 		// UP keycode = 38
-		else if (e.which == 38) {
+		else if (e.which === 38) {
 			this.moveUp();
 		}
 		// RIGHT keycode = 39
-		else if (e.which == 39) {
+		else if (e.which === 39) {
 			this.moveRight();
 		}
 		// DOWN keycode = 40
-		else if (e.which == 40) {
+		else if (e.which === 40) {
 			this.moveDown();
 		}
 		else {

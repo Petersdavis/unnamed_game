@@ -4,8 +4,8 @@ import MapLayout from './Layouts/MapLayout';
 class Layout extends Component {
 	
 	render() {
-		var Player = this.props.Player;
-		var y = "string"
+		//var Player = this.props.Player;
+		//var y = "string"
     return (
     	<MapLayout Map = {this.props.Map}  />    	
     	    	
