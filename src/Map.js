@@ -29,13 +29,16 @@ class Room {
 	}
 
 	isInRoom(x,y){
+			
+			if(this.bot > y && this.top < y && this.right > x && this.left < x){
+				return true;
+			}
+			return false;
+		}
+	
 
-	
-	}
-	newRoom(x,y){
-		
-		var a;
-	
+		newRoom(x,y){
+			
 		var tile;
 		var direction = "";
 		
@@ -85,12 +88,11 @@ class Map {
 		
 		this.expose= this.expose.bind(this);
 		this.newMap = this.newMap.bind(this);
-		this.addRoom = this.addRoom.bind(this);
 		this.rndX = this.rndX.bind(this);
 		this.rndY = this.rndY.bind(this);
 		this.getTile = this.getTile.bind(this);
-		this.getWall = this.getWalls.bind(this);
-		this.makeTunnel = this.makeTunnel.bind(this);
+		
+		
 		this.newMap();
 	}
 	
@@ -118,7 +120,7 @@ class Map {
 	}
 	
 	newMap(depth){
-		const num_rooms = 1;
+		const num_rooms = 7;
 		var count;
 		var count2;
 		var room;
@@ -146,6 +148,12 @@ class Map {
 			count+=1
 		}
 		
+
+		for(count=0;count<rooms.length;++count){
+			console.log(count);
+			rooms[count].dig();
+
+		}
 		return this;
 	}
 
@@ -296,62 +304,7 @@ class Map {
 	}
 
 	
-	
-	
-	getWalls(x, y, top, right, bot, left){
-		var a;
-		var wall = [];
-		var tile = {};
-		var count1;
-		//top wall
-			for(count1=x-left+1;count1<x+right-1;++count1){
-				tile.tile =this.getTile(y-top-1, count1) 
-				if(tile.tile){
-					tile.tile.state.floor_ascii = "X";
-					tile.direction = "up"
-					wall.push(tile);
-				}
-							
-			}	
-			
-		//right wall
-			for(count1=y-top+1;count1<y+bot-1;++count1){
-				tile.tile =this.getTile(count1, x+right) 
-				if(tile.tile){
-					tile.tile.state.floor_ascii = "Y";
-					tile.direction  = "right"
-					wall.push(tile);
-				}
-			
-			}					
 		
-			//bottom wall
-			for(count1=x-left+1;count1<x+right-1;++count1){
-				tile.tile =this.getTile(y+bot, count1) 
-				if(tile.tile){
-					tile.tile.state.floor_ascii = "Z";
-					tile.direction  = "down"
-					wall.push(tile);
-				}
-						
-			}	
-			
-			//left wall
-			
-			for(count1=y-top+1;count1<y+bot-1;++count1){
-				tile.tile =this.getTile(count1, x-left-1)
-				if(tile.tile){
-					tile.tile.state.floor_ascii = "K";
-					tile.direction  = "left"
-					wall.push(tile);
-				}
-				
-			}	
-			
-			
-		return wall;
-	}
-	
 	expose(){
 		return this.state;	
 	}
