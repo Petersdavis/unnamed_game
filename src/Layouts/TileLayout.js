@@ -1,16 +1,12 @@
 import React, { Component } from 'react';
-
+import './Tiles.css';
 
 class TileLayout extends Component {
-	constructor(props) {
-		super(props);
-		console.log("empty constructor")
-	}
-	
-	render(){
 		
+	render(){
+		var class_name = this.props.tile.name;	
 		return(
-			<span>{this.props.ascii} </span>
+			<div className = {class_name+ " " + "tile"}><div className ="absolute"> {this.props.ascii} </div></div>
 			
 			)
 	}

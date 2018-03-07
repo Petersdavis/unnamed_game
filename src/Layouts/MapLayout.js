@@ -1,6 +1,6 @@
  import React, { Component } from 'react';
 import TileLayout from './TileLayout';
-
+import './Tiles.css'
 
 class MapLayout extends Component {
 	constructor(props) {
@@ -15,6 +15,7 @@ class MapLayout extends Component {
 	render(){
 		var player = this.props.Player;
 		const style = {position:"relative", top:0, bottom:0, left:0, right:0};
+		const row_style = {position:"relative", padding:0, margin:0, height:"16px"}
 		var Map = this.props.Map.state;
 		var x, y;
 		var fragment = [];
@@ -36,12 +37,12 @@ class MapLayout extends Component {
 
 				}
 				row.push(
-					<TileLayout key = {x} ascii = {tile.ascii} />
+					<TileLayout key = {x} tile = {tile} ascii = {tile.ascii} />
 					);
 			}
 			
 			fragment.push(
-				<div key = {y}>
+				<div style ={row_style} key = {y}>
 				  {row}
 				</div>
 				);

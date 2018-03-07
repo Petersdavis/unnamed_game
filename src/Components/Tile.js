@@ -26,7 +26,6 @@ class Tile{
 	removeObj(){}
 	removeMonst(){}
 	dig(){
-		var tile = this.state
 		if(this.state.id === 0){
 			//this is a wall
 			this.changeTile(1);			

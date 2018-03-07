@@ -4,7 +4,7 @@ class Tiles{
 			case 100:
 				this.data = {
 					id:0,
-					name:"character",
+					name:"player",
 					ascii:"@",
 					IS_WALKABLE:1
 				};
@@ -39,7 +39,7 @@ class Tiles{
 			case 3:
 				this.data = {
 					id:3,
-					name:"stair_up",
+					name:"stair-up",
 					ascii:"<",
 					IS_WALKABLE:1
 				};
@@ -47,7 +47,7 @@ class Tiles{
 			case 2:
 				this.data = {
 					id:2,
-					name:"stair_down",
+					name:"stair-down",
 					ascii:">",
 					IS_WALKABLE:1
 				};
@@ -56,7 +56,7 @@ class Tiles{
 				this.data = {
 					id:1,
 					name:"floor",
-					ascii:"0",
+					ascii:" ",
 					IS_WALKABLE:1
 				};
 				break;
@@ -65,7 +65,7 @@ class Tiles{
 				this.data = {
 					id:0,
 					name:"wall",
-					ascii:"#",
+					ascii:" ",
 					IS_WALKABLE:0
 				};
 
